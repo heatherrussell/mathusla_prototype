@@ -5,7 +5,7 @@ The JSON file is structed as lists of dictionaries, Bars nested in fibres nested
 
 {Layers:[ {Fibres:[{Bars:[]}]}]}
 
-Layers contain {ID, Direction, z, Fibres[]}
+Layers contain {ID, Direction, z, Fibres[]} <br>
 Fibres contain {ID, path, Interfaces[], Bars[], Loops[]}
 Interfaces contain {ID, length, channel, bar}
 Bars contain {ID, length, width, thickness, x, y}
