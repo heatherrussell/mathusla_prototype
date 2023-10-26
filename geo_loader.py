@@ -41,8 +41,9 @@ class layer:
                         if(loop.ID == item):
                             objs.append(loop)
 
+                if(fibre_obj.interfaces[f_channel].ID=="I1"):
+                    objs.reverse()
         return objs
-
     
 class fibre:
     def __init__(self):
@@ -132,15 +133,18 @@ def build_ch_map(the_dect):
                 continue
             else:
                 map.append([temp,layer_obj.z,layer_obj.direction])
+                break
     return map
 
-def get_xyz(map, f_ch, f_len):
+def get_xyz(map, f_chdist):
+    f_ch,f_len=f_chdist
     my_x=None
     my_y=None
     thepath=map[f_ch][0]
     my_z=map[f_ch][1]
     dir=map[f_ch][2]
     cnt=0
+
     for item in thepath:
         cnt+=1
         f_len=f_len-item.length
@@ -153,13 +157,29 @@ def get_xyz(map, f_ch, f_len):
                     else:
                         my_x=item.x
                         my_y=item.y-f_len
-                    break
+                    return my_x,my_y,my_z
                 else:
                     if(dir=='x'):
-                        my_x=item.x+f_len
+                        my_x=item.x+f_len+item.length
                         my_y=item.y
                     else:
                         my_x=item.x
-                        my_y=item.y+f_len
-                    break
+                        my_y=item.y+f_len+item.length
+                    return my_x,my_y,my_z
     return my_x,my_y,my_z
+
+def get_dist(hitinfo):
+    ch0,ch1=hitinfo[0]
+    t0,t1=hitinfo[1]
+    c=30 #cm/ns
+    n=1.5 #refractive index
+
+    tdiff =t0-t1
+    dist= 300-(c/n)*abs(tdiff)
+    
+    if(tdiff<0):
+        return [ch0,dist]
+    else:
+        return [ch1,dist]
+
+    
