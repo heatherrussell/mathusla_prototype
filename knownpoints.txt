@@ -1,0 +1,2 @@
+#formatted as {hit,xyz}
+{[[2,7],[12,17]],[]}

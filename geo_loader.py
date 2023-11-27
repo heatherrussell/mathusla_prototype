@@ -229,6 +229,8 @@ def get_xyz(map, f_chdist):
                         my_x=item.x
                         my_y=item.y+f_len+item.length
                     return my_x,my_y,my_z
+            else:
+                return 0,0,0
     return my_x,my_y,my_z
 
 def get_dist(hitinfo):
@@ -239,6 +241,12 @@ def get_dist(hitinfo):
     t0,t1=hitinfo[1]
     c=30 #cm/ns
     n=1.5 #refractive index
+
+    if(t0==-1): t0=0
+    if(t1==-1): t1=0
+    if(t0>100): return(ch0,0)
+    if(t1>100): return(ch1,0)
+
 
     tdiff =t0-t1
     dist= 300-(c/n)*abs(tdiff) #assumes 6m fibre
