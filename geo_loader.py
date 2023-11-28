@@ -223,7 +223,7 @@ def get_xyz(map, f_chdist):
                     return my_x,my_y,my_z
                 else:
                     if(dir=='x'):
-                        my_x=item.x+f_len+item.length
+                        my_x=item.x-f_len-item.length
                         my_y=item.y
                     else:
                         my_x=item.x
